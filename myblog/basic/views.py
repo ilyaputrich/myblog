@@ -31,4 +31,3 @@ class Search(View):
     def get(self, request):
         posts = Post.objects.filter(title__contains=self.request.GET.get("search"))
         return render(request, "basic/basic.html", {"post_list": posts})
-
