@@ -3,7 +3,7 @@ from django.views.generic.base import View
 from django.views.generic import ListView
 from .models import Post
 from .form import CommentsForm
-# from django.contrib.postgres.search import SearchVector
+
 
 class PostView(View):
     "Вывод записей"
@@ -29,17 +29,6 @@ class AddComments(View):
 class Search(View):
     "Вывод записей"
     def get(self, request):
-
-        posts = Post.objects.filter(author__contains=self.request.GET.get("search"))
+        posts = Post.objects.filter(title__contains=self.request.GET.get("search"))
         return render(request, "basic/basic.html", {"post_list": posts})
-
-# class Search(View):
-#     "Вывод записей"
-#     def get(self, request):
-#
-#         posts = Post.objects.annotate(search=SearchVector("title","descriptions","author"),
-#                                       ).filter(search=self.request.GET.get("search"))
-#         print(posts)
-#         return render(request, "basic/basic.html", {"post_list": posts})
-
 
